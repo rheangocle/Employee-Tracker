@@ -25,12 +25,95 @@ import gradient from 'gradient-string';
 //   }
 //   console.log(data);
 // })
+const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 
-const selectOption = inquirer.prompt([
-  {
-    type: 'list',
-    message: 'Choose from the options below:',
-    choices: ['View all departments', 'View all roles', 'View all employees', 'Add a role', 'Add an employee', 'Update an employee role'],
-    name: 'select',
-  },
-])
+
+async function start() {
+  figlet('Welcome to \n Employee Tracker!', (err, data) => {
+    console.log(gradient.pastel(data));
+  });
+  await sleep();
+}
+
+
+async function selectOption() {
+  inquirer.prompt([
+    {
+      type: 'list',
+      message: 'Choose from the options below:',
+      choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit'],
+      name: 'select',
+    },
+  ])
+    .then((answer) => {
+      if (answer.select === 'Add a department') {
+        addDepartment();
+      } else if (answer.select === 'Add a role') {
+        addRole();
+      } else if (answer.select === 'Add an employee') {
+        addEmployee();
+      } else if (answer.select === 'Update an employee role') {
+        //something here
+      } else {
+        process.exit(0);
+      }
+    })
+}
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: 'What is the name of the department?',
+      name: 'department_name',
+    },
+  ])
+}
+
+function addRole() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: 'What is the role?',
+      name: 'newRole',
+    },
+    {
+      type: 'input',
+      message: 'What is the salary for this role?',
+      name: 'salary'
+    },
+    {
+      type: 'input',
+      message: "Enter a department for this role",
+      name: 'department'
+    }
+  ])
+}
+
+function addEmployee() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: 'What is the employee\'s first name?',
+      name: 'firstName'
+    },
+    {
+      type: 'input',
+      message: 'What is the employee\'s last name?',
+      name: 'lastName'
+    },
+    {
+      type: 'input',
+      message: 'What is the employee\'s role?',
+      name: 'role'
+    },
+    {
+      type: 'input',
+      message: 'Who is the employee\'s manager?',
+      name: 'manager'
+    },
+  ])
+}
+
+await start();
+await selectOption();
