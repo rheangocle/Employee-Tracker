@@ -5,6 +5,14 @@ import figlet from 'figlet';
 import chalk from 'chalk';
 import gradient from 'gradient-string';
 
+//create connection to database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'employee_tracker_db',
+  password: 'root'
+})
+
 //Ascii art for welcome text
 
 // figlet('Welcome to \n Employee Tracker!', (err, data) => {
@@ -27,14 +35,12 @@ import gradient from 'gradient-string';
 // })
 const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 
-
 async function start() {
   figlet('Welcome to \n Employee Tracker!', (err, data) => {
     console.log(gradient.pastel(data));
   });
   await sleep();
 }
-
 
 async function selectOption() {
   inquirer.prompt([
@@ -46,18 +52,73 @@ async function selectOption() {
     },
   ])
     .then((answer) => {
-      if (answer.select === 'Add a department') {
-        addDepartment();
-      } else if (answer.select === 'Add a role') {
-        addRole();
-      } else if (answer.select === 'Add an employee') {
-        addEmployee();
-      } else if (answer.select === 'Update an employee role') {
-        //something here
-      } else {
-        process.exit(0);
+      switch (answer.select) {
+        case 'View all departments':
+          viewDepartments();
+          break;
+        case 'View all roles':
+          viewRoles();
+          break;
+        case 'View all employees':
+          viewEmployees();
+          break;
+        case 'Add a department':
+          addDepartment();
+          break;
+        case 'Add a role':
+          addRole();
+          break;
+        case 'Add an employee':
+          addEmployee();
+          break;
+        case 'Update an employee role':
+          //something here
+          break;
+        default: process.exit(0);
+          break;
       }
+      // if (answer.select === 'Add a department') {
+      //   addDepartment();
+      // } else if (answer.select === 'Add a role') {
+      //   addRole();
+      // } else if (answer.select === 'Add an employee') {
+      //   addEmployee();
+      // } else if (answer.select === 'Update an employee role') {
+      //   //something here
+      // } else {
+      //   process.exit(0);
+      // }
     })
+}
+
+function viewDepartments() {
+  connection.query('SELECT * FROM `departments`',
+    function (err, results, fields) {
+      console.log(results);
+      console.log(fields);
+      console.log(err);
+    }
+  )
+}
+
+function viewRoles() {
+  connection.query('SELECT * FROM `roles`',
+    function (err, results, fields) {
+      console.log(results);
+      console.log(fields);
+      console.log(err);
+    }
+  )
+}
+
+function viewEmployees() {
+  connection.query('SELECT * FROM `employee`',
+    function (err, results, fields) {
+      console.log(results);
+      console.log(fields);
+      console.log(err);
+    }
+  )
 }
 
 function addDepartment() {

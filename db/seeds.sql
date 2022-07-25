@@ -1,35 +1,98 @@
 -- for inputting table values
 
 INSERT INTO departments (id, name)
-VALUES
-
-
+VALUES 
+(1, "Engineering"),
+(2, "Research and Development"),
+(3, "Support"),
+(4, "Accounting"),
+(5, "Marketing"),
+(6, "Legal"),
+(7, "Human Resources"),
+(8, "Services"),
+(9, "Engineering"),
+(10, "Sales");
 
 INSERT INTO roles (id, job_title, salary, department_id)
-VALUES;
-INSERT INTO roles (id, job_title, salary, department_id)
 VALUES
-  (1,"Project Manager","$44,095",2),
-  (2,"Marketing Specialist","$61,488",9),
-  (3,"Accountant","$71,606",5),
-  (4,"Engineer","$92,365",4),
-  (5,"Administrative Assistant","$92,987",9);
-
+{"id":1,"job_title":"Civil Engineer","salary":"$29961.30","department_id":"34-514-4814"},
+{"id":2,"job_title":"Biostatistician III","salary":"$45643.24","department_id":"50-219-4698"},
+{"id":3,"job_title":"Environmental Specialist","salary":"$47540.94","department_id":"13-695-2298"},
+{"id":4,"job_title":"VP Accounting","salary":"$118570.36","department_id":"86-834-4525"},
+{"id":5,"job_title":"Desktop Support Technician","salary":"$36417.36","department_id":"29-571-9354"},
+{"id":6,"job_title":"Financial Advisor","salary":"$103100.66","department_id":"14-621-0874"},
+{"id":7,"job_title":"Human Resources Manager","salary":"$83853.96","department_id":"05-962-9640"},
+{"id":8,"job_title":"Safety Technician I","salary":"$108048.99","department_id":"66-246-5298"},
+{"id":9,"job_title":"Programmer Analyst I","salary":"$161223.73","department_id":"21-564-2334"},
+{"id":10,"job_title":"Nurse","salary":"$18222.22","department_id":"43-946-5735"},
+{"id":11,"job_title":"Database Administrator II","salary":"$107286.30","department_id":"03-095-0586"},
+{"id":12,"job_title":"Dental Hygienist","salary":"$152001.19","department_id":"97-558-6919"},
+{"id":13,"job_title":"Design Engineer","salary":"$52689.44","department_id":"98-377-7345"},
+{"id":14,"job_title":"Safety Technician IV","salary":"$24893.55","department_id":"20-725-3436"},
+{"id":15,"job_title":"Biostatistician III","salary":"$87785.50","department_id":"19-048-3602"},
+{"id":16,"job_title":"Community Outreach Specialist","salary":"$84099.96","department_id":"93-448-3569"},
+{"id":17,"job_title":"Quality Engineer","salary":"$65298.68","department_id":"29-689-9251"},
+{"id":18,"job_title":"Computer Systems Analyst III","salary":"$59413.57","department_id":"11-231-2285"},
+{"id":19,"job_title":"Junior Executive","salary":"$199165.64","department_id":"69-903-2563"},
+{"id":20,"job_title":"Chief Design Engineer","salary":"$136407.63","department_id":"30-236-1439"},
+{"id":21,"job_title":"Financial Advisor","salary":"$85235.21","department_id":"06-544-5724"},
+{"id":22,"job_title":"Speech Pathologist","salary":"$141876.92","department_id":"43-056-4954"},
+{"id":23,"job_title":"Nurse","salary":"$113374.95","department_id":"77-106-0858"},
+{"id":24,"job_title":"Teacher","salary":"$152877.06","department_id":"41-398-6918"},
+{"id":25,"job_title":"Programmer III","salary":"$45434.72","department_id":"78-037-3997"};
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES;
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES
-  (1,"Meredith","Leroy",16,32),
-  (2,"Maia","Noel",79,46),
-  (3,"Regan","Peter",83,22),
-  (4,"Calvin","Ulric",24,5),
-  (5,"Cameron","Lamar",26,11),
-  (6,"Audrey","Colorado",84,24),
-  (7,"Yoshio","Beatrice",5,3),
-  (8,"Madonna","Portia",74,32),
-  (9,"Alexander","Charlotte",54,46),
-  (10,"Yardley","Ivor",51,11);
+{"id":1,"first_name":"Alanah","last_name":"Naerup","role_id":8,"manager_id":14},
+{"id":2,"first_name":"Pepe","last_name":"Sockell","role_id":61,"manager_id":40},
+{"id":3,"first_name":"Michaeline","last_name":"Ditzel","role_id":65,"manager_id":5},
+{"id":4,"first_name":"Harley","last_name":"Cypler","role_id":1,"manager_id":47},
+{"id":5,"first_name":"Loleta","last_name":"Bagott","role_id":29,"manager_id":27},
+{"id":6,"first_name":"Othilia","last_name":"Novic","role_id":78,"manager_id":6},
+{"id":7,"first_name":"Ruthe","last_name":"Ketley","role_id":40,"manager_id":1},
+{"id":8,"first_name":"Carson","last_name":"Di Boldi","role_id":74,"manager_id":27},
+{"id":9,"first_name":"Oneida","last_name":"Dommerque","role_id":56,"manager_id":6},
+{"id":10,"first_name":"Leonie","last_name":"Rowbrey","role_id":62,"manager_id":null},
+{"id":11,"first_name":"Nora","last_name":"Ormesher","role_id":70,"manager_id":26},
+{"id":12,"first_name":"Karoly","last_name":"Bage","role_id":59,"manager_id":5},
+{"id":13,"first_name":"Don","last_name":"Guilliatt","role_id":33,"manager_id":1},
+{"id":14,"first_name":"Verge","last_name":"Hartridge","role_id":31,"manager_id":1},
+{"id":15,"first_name":"Beverly","last_name":"Otton","role_id":79,"manager_id":null},
+{"id":16,"first_name":"Flin","last_name":"Chatenier","role_id":14,"manager_id":null},
+{"id":17,"first_name":"Boycey","last_name":"Chisholm","role_id":51,"manager_id":18},
+{"id":18,"first_name":"Ulick","last_name":"Guthrum","role_id":30,"manager_id":12},
+{"id":19,"first_name":"Griffin","last_name":"Mannion","role_id":43,"manager_id":16},
+{"id":20,"first_name":"Alissa","last_name":"Linster","role_id":1,"manager_id":42},
+{"id":21,"first_name":"Skye","last_name":"Micheau","role_id":31,"manager_id":46},
+{"id":22,"first_name":"Aubert","last_name":"Brownbridge","role_id":94,"manager_id":35},
+{"id":23,"first_name":"Rolfe","last_name":"Hinkley","role_id":18,"manager_id":5},
+{"id":24,"first_name":"Heidie","last_name":"Shotter","role_id":42,"manager_id":4},
+{"id":25,"first_name":"Fidelity","last_name":"Tue","role_id":56,"manager_id":22},
+{"id":26,"first_name":"Gui","last_name":"Carslaw","role_id":24,"manager_id":16},
+{"id":27,"first_name":"Ardath","last_name":"Syseland","role_id":88,"manager_id":36},
+{"id":28,"first_name":"Nerita","last_name":"Issatt","role_id":45,"manager_id":30},
+{"id":29,"first_name":"Davey","last_name":"Hadfield","role_id":54,"manager_id":null},
+{"id":30,"first_name":"Madeleine","last_name":"Northeast","role_id":15,"manager_id":26},
+{"id":31,"first_name":"Lianne","last_name":"Sine","role_id":20,"manager_id":11},
+{"id":32,"first_name":"Farrel","last_name":"Ryce","role_id":16,"manager_id":16},
+{"id":33,"first_name":"Edee","last_name":"Aspray","role_id":69,"manager_id":25},
+{"id":34,"first_name":"Adolpho","last_name":"Chessel","role_id":57,"manager_id":3},
+{"id":35,"first_name":"Sheppard","last_name":"Earlam","role_id":67,"manager_id":23},
+{"id":36,"first_name":"Gamaliel","last_name":"Viney","role_id":89,"manager_id":28},
+{"id":37,"first_name":"Ham","last_name":"Birnie","role_id":62,"manager_id":26},
+{"id":38,"first_name":"Salvidor","last_name":"Prebble","role_id":16,"manager_id":45},
+{"id":39,"first_name":"Shantee","last_name":"Geffcock","role_id":46,"manager_id":47},
+{"id":40,"first_name":"Tommie","last_name":"Waring","role_id":92,"manager_id":34},
+{"id":41,"first_name":"Ruby","last_name":"Guilloux","role_id":63,"manager_id":26},
+{"id":42,"first_name":"Mattie","last_name":"Hathaway","role_id":73,"manager_id":4},
+{"id":43,"first_name":"Maurene","last_name":"Aynscombe","role_id":33,"manager_id":1},
+{"id":44,"first_name":"Licha","last_name":"Dayment","role_id":42,"manager_id":25},
+{"id":45,"first_name":"Lesya","last_name":"Spragge","role_id":61,"manager_id":17},
+{"id":46,"first_name":"Brunhilde","last_name":"Shiel","role_id":92,"manager_id":3},
+{"id":47,"first_name":"Farleigh","last_name":"Coldridge","role_id":15,"manager_id":30},
+{"id":48,"first_name":"Matilde","last_name":"Itshak","role_id":81,"manager_id":41},
+{"id":49,"first_name":"Jori","last_name":"Whitcomb","role_id":26,"manager_id":49},
+{"id":50,"first_name":"Heddie","last_name":"Mallinson","role_id":41,"manager_id":13};
 
 
 
