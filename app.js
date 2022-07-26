@@ -100,8 +100,8 @@ async function selectOption() {
 
 let theEmail = '';
 function viewDepartments() {
-  connection.query('SELECT * FROM departmentss',
-    function (err, results, fields) {
+  connection.query('SELECT * FROM departments',
+    function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
       }
@@ -122,7 +122,7 @@ function viewDepartments() {
 
 function viewRoles() {
   connection.query('SELECT * FROM `roles`',
-    function (err, results, fields) {
+    function (err, results) {
       if (err) {
         log("Sorry, there was an error in retrieving your results 😓.")
       }
@@ -134,7 +134,7 @@ function viewRoles() {
 
 function viewEmployees() {
   connection.query('SELECT * FROM `employee`',
-    function (err, results, fields) {
+    function (err, results) {
       if (err) {
         log("Sorry, there was an error in retrieving your results 😓.")
       }
@@ -168,8 +168,8 @@ function addRole() {
     },
     {
       type: 'input',
-      message: "Enter a department for this role",
-      name: 'department'
+      message: "Enter the department ID for this role",
+      name: 'departmentId'
     }
   ])
 }
@@ -188,13 +188,13 @@ function addEmployee() {
     },
     {
       type: 'input',
-      message: 'What is the employee\'s role?',
-      name: 'role'
+      message: 'What is the employee\'s role ID?',
+      name: 'roleId'
     },
     {
       type: 'input',
-      message: 'Who is the employee\'s manager?',
-      name: 'manager'
+      message: 'Who is the employee\'s manager ID?',
+      name: 'managerId'
     },
   ])
 }
