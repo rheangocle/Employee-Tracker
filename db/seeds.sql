@@ -1,17 +1,17 @@
 -- for inputting table values
 
-INSERT INTO departments (id, name)
+INSERT INTO departments (name)
 VALUES 
-(1, "Engineering"),
-(2, "Research and Development"),
-(3, "Support"),
-(4, "Accounting"),
-(5, "Marketing"),
-(6, "Legal"),
-(7, "Human Resources"),
-(8, "Services"),
-(9, "Engineering"),
-(10, "Sales");
+("Engineering"),
+("Research and Development"),
+("Support"),
+("Accounting"),
+("Marketing"),
+("Legal"),
+("Human Resources"),
+("Services"),
+("Engineering"),
+("Sales");
 
 INSERT INTO roles (id, job_title, salary, department_id)
 VALUES

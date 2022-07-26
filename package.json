@@ -21,10 +21,10 @@
   "dependencies": {
     "chalk": "^5.0.1",
     "chalk-animation": "^2.0.2",
+    "cli-table": "^0.3.11",
     "figlet": "^1.5.2",
     "gradient-string": "^2.0.1",
     "inquirer": "^9.0.2",
-    "mysql2": "^2.3.3",
-    "table": "^6.8.0"
+    "mysql2": "^2.3.3"
   }
 }
