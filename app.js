@@ -3,12 +3,7 @@ import mysql from 'mysql2';
 import figlet from 'figlet';
 import chalk from 'chalk';
 import gradient from 'gradient-string';
-import Table from 'cli-table';
 
-let table = new Table({
-  head: ['TH 1 label', 'TH 2 label'],
-  colWidths: [100, 200]
-})
 const log = console.log;
 
 //create connection to database
@@ -18,23 +13,6 @@ const connection = mysql.createConnection({
   database: 'employee_tracker_db',
   password: 'root'
 })
-
-//Ascii art for welcome text
-
-// figlet.text('Welcome to Employee Tracker!', {
-//   font: 'big',
-//   horizontalLayout: 'standard',
-//   verticalLayout: 'default',
-//   width: 100,
-//   whitespaceBreak: true
-// }, function (err, data) {
-//   if (err) {
-//     console.log('Something went wrong...');
-//     console.dir(err);
-//     return;
-//   }
-//   console.log(data);
-// })
 
 //Timeout to display ascii art
 const sleep = (ms = 300) => new Promise((r) => setTimeout(r, ms));
@@ -53,7 +31,7 @@ async function selectOption() {
     {
       type: 'list',
       message: 'Choose from the options below:',
-      choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit'],
+      choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'View Employees by Manager', 'View Employees by Department', 'Exit'],
       name: 'select',
     },
   ])
@@ -77,28 +55,20 @@ async function selectOption() {
         case 'Add an employee':
           addEmployee();
           break;
-        case 'Update an employee role':
-          //something here
+        case 'View Employees by Manager':
+          viewByManager();
+          break;
+        case 'View Employees by Department':
+          viewByDepartment();
           break;
         default: connection.end();
           //process.exit(0);
           break;
       }
-      // if (answer.select === 'Add a department') {
-      //   addDepartment();
-      // } else if (answer.select === 'Add a role') {
-      //   addRole();
-      // } else if (answer.select === 'Add an employee') {
-      //   addEmployee();
-      // } else if (answer.select === 'Update an employee role') {
-      //   //something here
-      // } else {
-      //   process.exit(0);
-      // }
     })
 }
 
-//let theEmail = '';
+//To view all departments
 function viewDepartments() {
   connection.query(`SELECT id AS 'Department ID', name AS 'Department'
   FROM departments`,
@@ -106,27 +76,21 @@ function viewDepartments() {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
       }
-      // for (let i = 0; i < results.length; i++) {
-      //   for (obj of results[i]) {
-      //     //obj = whatever field its currently on (name, email, w/e)
-      //     theShit = "";
-      //     theShit += ('| ' + results[i].id + ' | ' + rows[i].name);
-      //     theEmail += theShit + "<BR>";
-      //     console.log(theEmail);
-      //   }
-      // }
+      //View table
       console.table(results);
+      //Select other options
       selectOption();
     }
   )
 }
 
+//To view all roles
 function viewRoles() {
   connection.query(`SELECT id AS 'Role ID', title AS 'Role Title', salary AS 'Salary', department_id AS 'Department ID'
   FROM roles`,
     function (err, results) {
       if (err) {
-        log("Sorry, there was an error in retrieving your results 😓.")
+        log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
       }
       console.table(results);
       selectOption();
@@ -134,6 +98,7 @@ function viewRoles() {
   )
 }
 
+//To view all employees with roles and managers
 function viewEmployees() {
   connection.query(`SELECT e.id AS 'Employee ID', e.first_name AS 'First Name', e.last_name AS 'Last Name', r.title AS 'Title', d.name AS 'Department', r.salary AS 'Salary', e.manager_id AS 'Manager ID', CONCAT(m.FIRST_NAME, ' ', m.LAST_NAME) AS 'Manager Name'
   FROM employee e
@@ -143,7 +108,7 @@ function viewEmployees() {
   ORDER BY d.name`,
     function (err, results) {
       if (err) {
-        log("Sorry, there was an error in retrieving your results 😓.")
+        log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
       }
       console.table(results);
       selectOption();
@@ -173,10 +138,7 @@ function addDepartment() {
     {
       type: 'input',
       message: 'What is the department ID?',
-      name: 'departmentId',
-      filter(answer) {
-        return parseInt(answer);
-      }
+      name: 'departmentId'
     },
   ])
     .then((answer) => {
@@ -187,7 +149,7 @@ function addDepartment() {
       connection.query(`INSERT INTO departments SET ?`, values,
         function (err, results) {
           if (err) {
-            log("Sorry, there was an error in retrieving your results 😓.")
+            log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
           }
           log(chalk.bgGreenBright(`${answer.departmentName} was added as a new department!`));
           selectOption();
@@ -201,10 +163,7 @@ function addRole() {
     {
       type: 'input',
       message: 'What is the role ID?',
-      name: 'newRoleId',
-      filter(answer) {
-        return parseInt(answer);
-      }
+      name: 'newRoleId'
     },
     {
       type: 'input',
@@ -230,10 +189,7 @@ function addRole() {
     {
       type: 'input',
       message: "Enter the department ID for this role",
-      name: 'departmentId',
-      filter(answer) {
-        return parseInt(answer);
-      }
+      name: 'departmentId'
     }
   ]).then((answer) => {
     let values = {
@@ -245,7 +201,7 @@ function addRole() {
     connection.query(`INSERT INTO roles SET ?`, values,
       function (err, results) {
         if (err) {
-          log("Sorry, there was an error in retrieving your results 😓.")
+          log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
         }
         log(chalk.bgGreen(`${answer.newRole} was added as a new role!`));
         selectOption();
@@ -253,15 +209,13 @@ function addRole() {
   })
 }
 
+//Prompt user to add a new employee
 function addEmployee() {
   inquirer.prompt([
     {
       type: 'input',
       message: 'What is the employee\'s ID?',
-      name: 'newEmployeeId',
-      filter(answer) {
-        return parseInt(answer);
-      }
+      name: 'newEmployeeId'
     },
     {
       type: 'input',
@@ -286,20 +240,15 @@ function addEmployee() {
     {
       type: 'input',
       message: 'What is the employee\'s role ID?',
-      name: 'roleId',
-      filter(answer) {
-        return parseInt(answer);
-      }
+      name: 'roleId'
     },
     {
       type: 'input',
       message: 'Who is the employee\'s manager ID?',
-      name: 'managerId',
-      filter(answer) {
-        return parseInt(answer);
-      }
+      name: 'managerId'
     },
   ]).then((answer) => {
+    //Creating an object to dynamically edit values
     let values = {
       id: answer.newEmployeeId,
       first_name: answer.firstName,
@@ -310,14 +259,51 @@ function addEmployee() {
     connection.query(`INSERT INTO employee SET ?`, values,
       function (err, results) {
         if (err) {
-          log("Sorry, there was an error in retrieving your results 😓.")
+          log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
         }
+        //Informing user employee was created
         log(chalk.bgYellow(`${answer.firstName + ' ' + answer.lastName} was added as a new employee!`));
         selectOption();
       });
   })
 }
 
+//View employees by manager
+function viewByManager() {
+  connection.query(`SELECT m.id AS 'Manager ID', CONCAT(m.FIRST_NAME, ' ', m.LAST_NAME) AS 'Manager Name', rls.title as 'Manager Title', CONCAT(e.first_name, ' ', e.last_name) AS 'Employee Name', r.title AS 'Employee Role', d.name AS 'Department'
+  FROM employee m
+  JOIN roles rls on m.ROLE_ID  = rls.id
+  JOIN employee e ON e.MANAGER_ID = m.id
+  JOIN roles r ON e.role_id = r.id
+  JOIN departments d ON r.department_id = d.id
+  ORDER BY m.FIRST_NAME`,
+    function (err, results) {
+      if (err) {
+        log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
+      }
+      console.table(results);
+      selectOption();
+    }
+  )
+}
+
+//View employees by department
+function viewByDepartment() {
+  connection.query(`SELECT d.name AS 'Department', CONCAT(e.first_name, ' ', e.last_name) AS 'Employee Name', r.title AS 'Employee Role'
+  FROM employee e
+  JOIN roles rls on e.role_id  = rls.id
+  JOIN roles r ON e.role_id = r.id
+  JOIN departments d ON r.department_id = d.id
+  ORDER BY d.name`,
+    function (err, results) {
+      if (err) {
+        log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
+      }
+      console.table(results);
+      selectOption();
+    }
+  )
+}
 //init functions
 await start();
 await selectOption();

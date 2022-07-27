@@ -14,25 +14,24 @@ LEFT JOIN roles r ON e.role_id = r.id
 LEFT JOIN departments d ON r.department_id = d.id
 ORDER BY d.name;
 
--- Add department
-INSERT INTO departments (id, name)
-VALUES (newDepartmentId, newDepartmentName);
-SELECT id AS 'Department ID', name AS 'Department'
-FROM departments;
--- get new department name from user
+-- View employees by manager
+SELECT m.id AS 'Manager ID', CONCAT(m.FIRST_NAME, ' ', m.LAST_NAME) AS 'Manager Name', rls.title as 'Manager Title', CONCAT(e.first_name, ' ', e.last_name) AS 'Employee Name', r.title AS 'Employee Role', d.name AS 'Department'
+FROM employee m
+join roles rls on m.ROLE_ID  = rls.id
+JOIN employee e ON e.MANAGER_ID = m.id
+JOIN roles r ON e.role_id = r.id
+JOIN departments d ON r.department_id = d.id
+ORDER BY m.FIRST_NAME;
 
--- Add role
-INSERT INTO roles (title, salary, department_id)
-VALUES (newRole, salary, departmentId);
+-- View employees by department
+SELECT d.name AS 'Department', CONCAT(e.first_name, ' ', e.last_name) AS 'Employee Name', r.title AS 'Employee Role'
+FROM employee e
+JOIN roles rls on e.role_id  = rls.id
+JOIN roles r ON e.role_id = r.id
+JOIN departments d ON r.department_id = d.id
+ORDER BY d.name;
 
--- Add employee
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES (firstName, lastName, roleId, manager_id);
-
-DELETE FROM departments WHERE id >= 1;
-SELECT * FROM departments;
-
--- view number of employees in each department
-SELECT employee, COUNT(id) as number_of_employees
-FROM 
-
+-- Update employee manager
+UPDATE employee
+SET manager_id = ?
+WHERE id = ?

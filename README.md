@@ -44,31 +44,25 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 ## Installations
 
-- ✅ Inquirer
+- ✅ Inquirer: asking questions in the command line
 
 ```
 npm i inquirer
 ```
 
-- ✅ MySQL2
+- ✅ MySQL2: using MySQL in Node.js
 
 ```
 npm i mysql2
 ```
 
-- ✅ Figlet
+- ✅ Figlet: ASCII Art
 
 ```
 npm install figlet
 ```
 
-- ✅ table
-
-```
-npm i table
-```
-
-- ✅ chalk
+- Optional: chalk - colorful CLI
 
 ```
 npm i chalk
