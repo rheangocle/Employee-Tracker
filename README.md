@@ -20,7 +20,7 @@ SO THAT I can organize and plan my business
 
 ## Summary
 
-This is a command-line application that allows users to interact with an employee database from MySQL. When starting the application, the user will be given options to: view all departments, view all roles, view all employees, add a department, add a role, add an employee, update an employee role, view employees by manager, and view employees by department. After the user selects an option, they will be able to either view the results in a table form in the console or update the values of the tables in the database. This application also features a fun terminal using chalk, gradient, and figlet.
+This is a command-line application that allows users to interact with an employee database from MySQL. When starting the application, the user will be given options to: view all departments, view all roles, view all employees, add a department, add a role, add an employee, update an employee role, view employees by manager, view employees by department, and update employee managers. After the user selects an option, they will be able to either view the results in a table form in the console or update the values of the tables in the database. This application also features a fun terminal using chalk, gradient, and figlet.
 
 ## Software
 

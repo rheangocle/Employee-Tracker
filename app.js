@@ -31,7 +31,7 @@ async function selectOption() {
     {
       type: 'list',
       message: 'Choose from the options below:',
-      choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'View Employees by Manager', 'View Employees by Department', 'Exit'],
+      choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'View Employees by Manager', 'View Employees by Department', 'Update an employee manager', 'Exit'],
       name: 'select',
     },
   ])
@@ -61,6 +61,9 @@ async function selectOption() {
         case 'View Employees by Department':
           viewByDepartment();
           break;
+        case "Update an employee manager":
+          updateEmployeeManager();
+          break;
         default: connection.end();
           //process.exit(0);
           break;
@@ -75,11 +78,9 @@ function viewDepartments() {
     function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-      }
-      //View table
-      console.table(results);
-      //Select other options
-      selectOption();
+      } else {
+        console.table(results);
+      } selectOption();
     }
   )
 }
@@ -91,9 +92,9 @@ function viewRoles() {
     function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-      }
-      console.table(results);
-      selectOption();
+      } else {
+        console.table(results);
+      } selectOption();
     }
   )
 }
@@ -109,9 +110,9 @@ function viewEmployees() {
     function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-      }
-      console.table(results);
-      selectOption();
+      } else {
+        console.table(results);
+      } selectOption();
     }
   )
 }
@@ -150,9 +151,9 @@ function addDepartment() {
         function (err, results) {
           if (err) {
             log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-          }
-          log(chalk.bgGreenBright(`${answer.departmentName} was added as a new department!`));
-          selectOption();
+          } else {
+            log(chalk.bgGreenBright(`${answer.departmentName} was added as a new department!`));
+          } selectOption();
         });
     })
 }
@@ -202,9 +203,9 @@ function addRole() {
       function (err, results) {
         if (err) {
           log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-        }
-        log(chalk.bgGreen(`${answer.newRole} was added as a new role!`));
-        selectOption();
+        } else {
+          log(chalk.bgGreen(`${answer.newRole} was added as a new role!`));
+        } selectOption();
       });
   })
 }
@@ -244,7 +245,7 @@ function addEmployee() {
     },
     {
       type: 'input',
-      message: 'Who is the employee\'s manager ID?',
+      message: 'What is the manager\'s ID?',
       name: 'managerId'
     },
   ]).then((answer) => {
@@ -260,10 +261,10 @@ function addEmployee() {
       function (err, results) {
         if (err) {
           log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-        }
-        //Informing user employee was created
-        log(chalk.bgYellow(`${answer.firstName + ' ' + answer.lastName} was added as a new employee!`));
-        selectOption();
+        } else {
+          //Informing user employee was created
+          log(chalk.bgYellow(`${answer.firstName + ' ' + answer.lastName} was added as a new employee!`));
+        } selectOption();
       });
   })
 }
@@ -280,9 +281,9 @@ function viewByManager() {
     function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-      }
-      console.table(results);
-      selectOption();
+      } else {
+        console.table(results);
+      } selectOption();
     }
   )
 }
@@ -298,12 +299,39 @@ function viewByDepartment() {
     function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
-      }
-      console.table(results);
-      selectOption();
+      } else {
+        console.table(results);
+      } selectOption();
     }
   )
 }
+
+//Update employee manager
+function updateEmployeeManager() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: 'What is the employee ID?',
+      name: 'employeeId'
+    },
+    {
+      type: 'input',
+      message: 'What is the manager\'s ID?',
+      name: 'managerId'
+    }
+  ]).then((answer) => {
+    let values = [answer.managerId, answer.employeeId];
+    connection.query(`UPDATE employee SET manager_id = ? WHERE id = ?`, values,
+      function (err, results) {
+        if (err) {
+          log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
+        } else {
+          log(chalk.bgGreen(`Employee #${answer.employeeId} has a new manager, #${answer.managerId}!`));
+        } selectOption();
+      });
+  })
+}
+
 //init functions
 await start();
 await selectOption();

@@ -1,5 +1,3 @@
--- for inputting table values
-
 INSERT INTO departments (id, name)
 VALUES 
 ("Engineering"),
@@ -191,25 +189,4 @@ SET
   manager_id = 12  
 WHERE
   id = 20;
-  
-(1, "Rafaelia", "Myall", 1, null),
-(2, "Annabela", "Lymbourne", 2, 15),
-(3, "Shaun", "Flemmich", 3, null),
-(4, "Annabela", "Lymbourne", 4, 3),
-(5, "Ailee", "Garfield", 5, 12),
-(6, "Julianna", "Scapens", 6, 3),
-(7, "Cybill", "Padrick", 7, null),
-(8, "Pam", "Quiddington", 8, 15),
-(9, "Geraldine", "Lanmeid", 9, 10),
-(10, "Reta", "Ackenson", 10, null),
-(11, "Seamus", "MacNeilley", 11, null),
-(12, "Noami", "Reiner", 12, null),
-(13, "Shea", "Tavner", 13, null),
-(14, "Sarene", "Arnoll", 14, 13),
-(15, "Davidson", "Maty", 15, null),
-(16, "Sebastiano", "Babington", 2, 15),
-(17, "Nickolaus", "Tennison", 2, 15),
-(18, "Leonora", "Butler", 4, 3),
-(19, "Merrielle", "Tippetts", 8, 15),
-(20, "Pedro", "Tweedlie", 5, 12);
 

@@ -13,15 +13,13 @@
   },
   "keywords": [],
   "author": "Rhea Le",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rheangocle/Employee-Tracker/issues"
   },
   "homepage": "https://github.com/rheangocle/Employee-Tracker#readme",
   "dependencies": {
     "chalk": "^5.0.1",
-    "chalk-animation": "^2.0.2",
-    "cli-table": "^0.3.11",
     "figlet": "^1.5.2",
     "gradient-string": "^2.0.1",
     "inquirer": "^9.0.2",
