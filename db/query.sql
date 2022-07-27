@@ -15,8 +15,10 @@ LEFT JOIN departments d ON r.department_id = d.id
 ORDER BY d.name;
 
 -- Add department
-INSERT INTO departments (name)
-VALUES (newDepartmentName);
+INSERT INTO departments (id, name)
+VALUES (newDepartmentId, newDepartmentName);
+SELECT id AS 'Department ID', name AS 'Department'
+FROM departments;
 -- get new department name from user
 
 -- Add role

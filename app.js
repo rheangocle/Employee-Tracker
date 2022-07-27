@@ -151,16 +151,53 @@ function viewEmployees() {
   )
 }
 
+//Prompt user to add a new department
 function addDepartment() {
   inquirer.prompt([
     {
       type: 'input',
       message: 'What is the name of the department?',
-      name: 'department_name',
+      name: 'departmentName',
+      validate: function (input) {
+        if (input.length == 0) {
+          return console.log('Please enter a name.');
+        } else { return true };
+      },
+      //Capitalizing name
+      filter: function (input) {
+        return input.split(" ").map(word => {
+          return word.substring(0, 1).toUpperCase() + word.substring(1);
+        }).join(" ");
+      }
+    },
+    {
+      type: 'input',
+      message: 'What is the department ID?',
+      name: 'departmentId',
+      filter(answer) {
+        return parseInt(answer);
+      }
     },
   ])
+    .then((answer) => {
+      let columns = {
+        id: answer.departmentId,
+        name: answer.departmentName
+      };
+      connection.query(`INSERT INTO departments SET ?`, columns,
+        function (err, results) {
+          if (err) {
+            log("Sorry, there was an error in retrieving your results 😓.")
+          }
+          log(chalk.bgGreenBright(`${answer.departmentName} was added as a new department!`));
+          //console.log('A new department has been added!');
+          //console.table(results);
+          selectOption();
+        });
+    })
 }
 
+// Prompt user to add a new role
 function addRole() {
   inquirer.prompt([
     {
