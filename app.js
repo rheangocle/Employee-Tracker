@@ -180,18 +180,16 @@ function addDepartment() {
     },
   ])
     .then((answer) => {
-      let columns = {
+      let values = {
         id: answer.departmentId,
         name: answer.departmentName
       };
-      connection.query(`INSERT INTO departments SET ?`, columns,
+      connection.query(`INSERT INTO departments SET ?`, values,
         function (err, results) {
           if (err) {
             log("Sorry, there was an error in retrieving your results 😓.")
           }
           log(chalk.bgGreenBright(`${answer.departmentName} was added as a new department!`));
-          //console.log('A new department has been added!');
-          //console.table(results);
           selectOption();
         });
     })
@@ -202,8 +200,27 @@ function addRole() {
   inquirer.prompt([
     {
       type: 'input',
+      message: 'What is the role ID?',
+      name: 'newRoleId',
+      filter(answer) {
+        return parseInt(answer);
+      }
+    },
+    {
+      type: 'input',
       message: 'What is the role?',
       name: 'newRole',
+      validate: function (input) {
+        if (input.length == 0) {
+          return console.log('Please enter a name.');
+        } else { return true };
+      },
+      //Capitalizing name
+      filter: function (input) {
+        return input.split(" ").map(word => {
+          return word.substring(0, 1).toUpperCase() + word.substring(1);
+        }).join(" ");
+      }
     },
     {
       type: 'input',
@@ -213,34 +230,92 @@ function addRole() {
     {
       type: 'input',
       message: "Enter the department ID for this role",
-      name: 'departmentId'
+      name: 'departmentId',
+      filter(answer) {
+        return parseInt(answer);
+      }
     }
-  ])
+  ]).then((answer) => {
+    let values = {
+      id: answer.newRoleId,
+      title: answer.newRole,
+      salary: answer.salary,
+      department_id: answer.departmentId
+    };
+    connection.query(`INSERT INTO roles SET ?`, values,
+      function (err, results) {
+        if (err) {
+          log("Sorry, there was an error in retrieving your results 😓.")
+        }
+        log(chalk.bgGreen(`${answer.newRole} was added as a new role!`));
+        selectOption();
+      });
+  })
 }
 
 function addEmployee() {
   inquirer.prompt([
     {
       type: 'input',
+      message: 'What is the employee\'s ID?',
+      name: 'newEmployeeId',
+      filter(answer) {
+        return parseInt(answer);
+      }
+    },
+    {
+      type: 'input',
       message: 'What is the employee\'s first name?',
-      name: 'firstName'
+      name: 'firstName',
+      filter: function (input) {
+        return input.split(" ").map(word => {
+          return word.substring(0, 1).toUpperCase() + word.substring(1);
+        }).join(" ");
+      }
     },
     {
       type: 'input',
       message: 'What is the employee\'s last name?',
-      name: 'lastName'
+      name: 'lastName',
+      filter: function (input) {
+        return input.split(" ").map(word => {
+          return word.substring(0, 1).toUpperCase() + word.substring(1);
+        }).join(" ");
+      }
     },
     {
       type: 'input',
       message: 'What is the employee\'s role ID?',
-      name: 'roleId'
+      name: 'roleId',
+      filter(answer) {
+        return parseInt(answer);
+      }
     },
     {
       type: 'input',
       message: 'Who is the employee\'s manager ID?',
-      name: 'managerId'
+      name: 'managerId',
+      filter(answer) {
+        return parseInt(answer);
+      }
     },
-  ])
+  ]).then((answer) => {
+    let values = {
+      id: answer.newEmployeeId,
+      first_name: answer.firstName,
+      last_name: answer.lastName,
+      role_id: answer.roleId,
+      manager_id: answer.managerId
+    };
+    connection.query(`INSERT INTO employee SET ?`, values,
+      function (err, results) {
+        if (err) {
+          log("Sorry, there was an error in retrieving your results 😓.")
+        }
+        log(chalk.bgYellow(`${answer.firstName + ' ' + answer.lastName} was added as a new employee!`));
+        selectOption();
+      });
+  })
 }
 
 //init functions
