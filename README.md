@@ -62,7 +62,9 @@ npm i gradient-string
 
 ## Mock-up
 
-![GIF of application]()
+[Employee Tracker Walkthrough video](https://drive.google.com/file/d/1c_XJDWpE43Br2zwo4pNvWbPwUdp49PDQ/view)
+
+![GIF of application](./assets/Employee%20Tracker%20Walkthrough.gif)
 
 ---
 

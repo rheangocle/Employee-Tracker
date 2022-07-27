@@ -316,7 +316,7 @@ function updateEmployeeManager() {
     },
     {
       type: 'input',
-      message: 'What is the manager\'s ID?',
+      message: 'What is the new manager\'s ID?',
       name: 'managerId'
     }
   ]).then((answer) => {
