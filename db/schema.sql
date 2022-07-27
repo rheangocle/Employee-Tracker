@@ -47,3 +47,10 @@ VALUES (newRole, salary, departmentId);
 -- Add employee
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES (firstName, lastName, roleId, manager_id);
+
+DELETE FROM departments WHERE id >= 1;
+SELECT * FROM departments;
+
+-- view number of employees in each department
+SELECT employee, COUNT(id) as number_of_employees
+FROM 

@@ -114,7 +114,7 @@ function viewDepartments() {
       //     console.log(theEmail);
       //   }
       // }
-      console.table(results);
+      console.table(chalk.bgBlueBright(results));
       selectOption();
     }
   )
