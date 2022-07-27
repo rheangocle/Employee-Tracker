@@ -98,9 +98,10 @@ async function selectOption() {
     })
 }
 
-let theEmail = '';
+//let theEmail = '';
 function viewDepartments() {
-  connection.query('SELECT * FROM departments',
+  connection.query(`SELECT id AS 'Department ID', name AS 'Department'
+  FROM departments`,
     function (err, results) {
       if (err) {
         log(chalk.bgRedBright("Sorry, there was an error in retrieving your results!"));
@@ -114,14 +115,15 @@ function viewDepartments() {
       //     console.log(theEmail);
       //   }
       // }
-      console.table(chalk.bgBlueBright(results));
+      console.table(results);
       selectOption();
     }
   )
 }
 
 function viewRoles() {
-  connection.query('SELECT * FROM `roles`',
+  connection.query(`SELECT id AS 'Role ID', title AS 'Role Title', salary AS 'Salary', department_id AS 'Department ID'
+  FROM roles`,
     function (err, results) {
       if (err) {
         log("Sorry, there was an error in retrieving your results 😓.")
@@ -133,7 +135,12 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  connection.query('SELECT * FROM `employee`',
+  connection.query(`SELECT e.id AS 'Employee ID', e.first_name AS 'First Name', e.last_name AS 'Last Name', r.title AS 'Title', d.name AS 'Department', r.salary AS 'Salary', e.manager_id AS 'Manager ID', CONCAT(m.FIRST_NAME, ' ', m.LAST_NAME) AS 'Manager Name'
+  FROM employee e
+  LEFT JOIN employee m ON m.id = e.MANAGER_ID
+  LEFT JOIN roles r ON e.role_id = r.id
+  LEFT JOIN departments d ON r.department_id = d.id
+  ORDER BY d.name`,
     function (err, results) {
       if (err) {
         log("Sorry, there was an error in retrieving your results 😓.")
