@@ -51,7 +51,6 @@ npm install figlet
 
 ```
 npm i chalk
-
 ```
 
 - ✅ Gradient-string - color gradients in terminal
